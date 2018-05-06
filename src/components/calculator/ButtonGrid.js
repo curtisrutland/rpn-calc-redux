@@ -9,6 +9,7 @@ import {
 } from "@material-ui/icons";
 import Row from './Row.';
 import Button from './Button';
+import { DIVIDE } from '../../redux/calculator/binaryOperators';
 
 const styles = {
   card: {
@@ -30,13 +31,13 @@ const buttonGrid = ({ classes, actions }) => {
         <Row>
           <Button icon={<ArrowBackIcon />} backspace />
           <Button text="C" clear />
-          <Button text="Enter" />
+          <Button text="Enter" enter />
         </Row>
         <Row>
           <Button number={7} />
           <Button number={8} />
           <Button number={9} />
-          <Button text="÷" />
+          <Button text="÷" operator={DIVIDE} />
         </Row>
         <Row>
           <Button number={4} />

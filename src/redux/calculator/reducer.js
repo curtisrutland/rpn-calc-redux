@@ -1,89 +1,36 @@
 import * as Immutable from "immutable";
-import { 
+import {
   NUMBER_PRESSED, CLEAR_PRESSED, BACKSPACE_PRESSED,
-  DECIMAL_PRESSED
+  DECIMAL_PRESSED, ENTER_PRESSED, BINARY_OPERATOR_PRESSED
 } from "./actionTypes";
+import * as calculator from "../../helpers/calculator";
 
 const initialState = {
   stack: Immutable.Stack(),
   displayText: "0",
-  acceptsInput: true
+  acceptsInput: true,
+  error: null
 };
-
-const backspace = (state) => {
-  if (!state.acceptsInput) return {
-    ...state,
-    displayText: "0"
-  };
-  if (state.displayText.length <= 1) return {
-    ...state,
-    displayText: "0"
-  }
-  return {
-    ...state,
-    displayText: state.displayText.slice(0, -1)
-  }
-};
-
-const numberPressed = (state, { payload: num }) => {
-  if (!state.acceptsInput) {
-    return {
-      ...state,
-      displayText: num.toString(),
-      acceptsInput: true
-    };
-  } else {
-    let displayText = state.displayText === "0"
-      ? num.toString()
-      : state.displayText + num.toString();
-    return {
-      ...state,
-      displayText
-    };
-  }
-};
-
-const clearPressed = state => ({
-  ...state,
-  displayText: "0",
-  stack: Immutable.Stack(),
-  acceptsInput: true
-});
-
-const decimalPressed = state => {
-  if (!state.acceptsInput) {
-    return {
-      ...state,
-      acceptsInput: true,
-      displayText: "0."
-    };
-  } else {
-    if(state.displayText.indexOf(".") > -1) 
-      return state;
-    return {
-      ...state,
-      displayText: state.displayText + "."
-    };
-  }
-}
-
-const enter = state => {
-
-}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case NUMBER_PRESSED:
-      return numberPressed(state, action);
+      return calculator.num(state, action.payload);
 
     case CLEAR_PRESSED:
-      return clearPressed(state);
+      return calculator.clear(state);
 
     case BACKSPACE_PRESSED:
-      return backspace(state);
+      return calculator.backspace(state);
 
     case DECIMAL_PRESSED:
-      return decimalPressed(state);
+      return calculator.decimal(state);
+
+    case ENTER_PRESSED:
+      return calculator.enter(state);
+
+    case BINARY_OPERATOR_PRESSED:
+      return calculator.binOp(state, action.payload);
 
     default:
       return state;

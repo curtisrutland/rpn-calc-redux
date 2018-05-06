@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Paper, Typography } from "material-ui";
 
 const mapStateToProps = ({ calc }) => ({
-  text: calc.displayText
+  text: calc.error ? calc.error : calc.displayText
 });
 
 const styles = {

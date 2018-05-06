@@ -27,7 +27,9 @@ const button = ({
   number = null,
   clear = false, 
   backspace = false,
-  decimal = false
+  decimal = false,
+  enter = false,
+  operator = null
 }) => {
   let child = text;
   if (icon) child = icon;
@@ -37,7 +39,9 @@ const button = ({
   if (clear) onClick = () => actions.clearPressed();
   else if (backspace) onClick = () => actions.backspacePressed();
   else if (decimal) onClick = () => actions.decimalPressed();
+  else if (enter) onClick = () => actions.enterPressed();
   else if (number != null) onClick = () => actions.numberPressed(number);
+  else if (operator != null) onClick = () => actions.binaryOperatorPressed(operator);
 
   return (
     <Button color="default" className={classes.button} onClick={onClick}>
