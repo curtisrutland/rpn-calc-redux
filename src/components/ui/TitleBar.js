@@ -31,14 +31,14 @@ const styles = {
 const titleBar = ({ classes, actions }) => {
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" elevation={8}>
+      <AppBar position="static" elevation={8}>
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={actions.toggleDrawer}>
             <MenuIcon />
           </IconButton>
           <Button color="inherit" size="large" onClick={actions.toggleDrawer}>
             <Typography variant="title" color="inherit" className={classes.title}>
-              Title Goes Here
+              RPN Calc Redux
           </Typography>
           </Button>
         </Toolbar>

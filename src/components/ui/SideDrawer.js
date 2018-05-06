@@ -7,9 +7,11 @@ import List, {
   ListItem, ListItemIcon, ListItemText
 } from 'material-ui/List';
 import {
-  Link as LinkIcon
+  Link as LinkIcon,
+  ContentCopy as ContentCopyIcon
 } from "@material-ui/icons";
 
+import copy from "../../helpers/copy";
 import * as UiActions from "../../redux/ui/actions";
 
 const styles = {
@@ -18,21 +20,28 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ ui }) => {
+const mapStateToProps = ({ ui, calc }) => {
   const { drawerOpen } = ui;
-  return { drawerOpen };
+  const { displayText } = calc;
+  return { drawerOpen, displayText };
 };
 
 const mapDispatchtoProps = dispatch => ({
   uiActions: bindActionCreators(UiActions, dispatch),
 });
 
-const sideDrawer = ({ drawerOpen, uiActions, todoActions, classes }) => {
+const sideDrawer = ({ drawerOpen, uiActions, todoActions, classes, displayText }) => {
   return (
     <SwipeableDrawer open={drawerOpen} onOpen={uiActions.openDrawer} onClose={uiActions.closeDrawer}>
       <div tabIndex={0} role="button" onClick={uiActions.closeDrawer} onKeyDown={uiActions.closeDrawer}>
         <div className={classes.list}>
           <List>
+            <ListItem button onClick={() => copy(displayText)}>
+              <ListItemIcon>
+                <ContentCopyIcon />
+              </ListItemIcon>
+              <ListItemText primary="Copy" />
+            </ListItem>
             <ListItem button onClick={() => window.location.href = "https://curtisrutland.github.io/rpn-calc-redux/"}>
               <ListItemIcon>
                 <LinkIcon />
@@ -42,7 +51,7 @@ const sideDrawer = ({ drawerOpen, uiActions, todoActions, classes }) => {
           </List>
         </div>
       </div>
-    </SwipeableDrawer>
+    </SwipeableDrawer >
   )
 };
 
