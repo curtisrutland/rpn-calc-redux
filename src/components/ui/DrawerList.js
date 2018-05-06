@@ -27,7 +27,7 @@ const drawerList = ({ displayText, classes }) => {
           </ListItemIcon>
           <ListItemText primary="Copy" />
         </ListItem>
-        <ListItem button onClick={() => window.location.href = "https://curtisrutland.github.io/rpn-calc-redux/"}>
+        <ListItem button onClick={() => window.location.href = "https://github.com/curtisrutland/rpn-calc-redux"}>
           <ListItemIcon>
             <LinkIcon />
           </ListItemIcon>
