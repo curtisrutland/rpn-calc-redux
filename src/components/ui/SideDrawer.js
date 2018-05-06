@@ -33,7 +33,7 @@ const sideDrawer = ({ drawerOpen, uiActions, todoActions, classes }) => {
       <div tabIndex={0} role="button" onClick={uiActions.closeDrawer} onKeyDown={uiActions.closeDrawer}>
         <div className={classes.list}>
           <List>
-            <ListItem button onClick={() => window.location.href = "https://github.com/curtisrutland/rpn-calc-redux"}>
+            <ListItem button onClick={() => window.location.href = "https://curtisrutland.github.io/rpn-calc-redux/"}>
               <ListItemIcon>
                 <LinkIcon />
               </ListItemIcon>
