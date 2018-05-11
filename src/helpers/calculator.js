@@ -79,7 +79,24 @@ export const enter = state => {
 }
 
 export const binOp = (state, operator) => {
-  return error(state, "Not Implemented");
+  if ( state.acceptsInput) {
+    state = enter(state);
+  }
+  if (state.stack.size < 2) {
+    return error(state, "Stack Underflow");
+  }
+  const b = state.stack.peek();
+  let stack = state.stack.pop();
+  const a = stack.peek();
+  stack = stack.pop();
+  const result = operators[operator](a, b);
+  stack = stack.push(result);
+  const displayText = result.toString();
+  return {
+    ...state,
+    displayText,
+    stack
+  }
 }
 
 export const error = (state, error) => {
@@ -90,4 +107,18 @@ export const error = (state, error) => {
     error,
     acceptsInput: false
   }
+}
+
+export const operatorNames = {
+  DIVIDE: "DIVIDE",
+  MULTIPLY: "MULTIPLY",
+  ADD: "ADD",
+  SUBTRACT: "SUBTRACT"
+};
+
+const operators = {
+  [operatorNames.DIVIDE] : (a, b) => a / b,
+  [operatorNames.MULTIPLY]: (a, b) => a * b,
+  [operatorNames.ADD]: (a, b) => a + b,
+  [operatorNames.SUBTRACT]: (a, b) => a - b
 }
